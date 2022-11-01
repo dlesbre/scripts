@@ -1,0 +1,9 @@
+#!/usr/bin/bash
+# bash script print utf8 characters on screen
+# author: Dorian Lesbre
+
+a="\033[93m"
+b="\033[38m"
+echo -e "${a}Point median :${b} ·"
+echo -e "${a}Infini :      ${b} ∞"
+echo -e "${a}Guillemets   :${b} « »"

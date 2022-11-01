@@ -1,0 +1,279 @@
+#!/usr/bin/bash
+# bash script to init c/cpp and h/hpp files
+# see help for details
+# author: Dorian Lesbre
+
+VERSION="1.2"
+NAME="\033[93mnewcmake:\033[38m"
+
+templates_path=~/Templates
+c_template=$templates_path/cmake-main-template.c
+h_template=$templates_path/cmake-project-template.h.in
+cmake_template=$templates_path/cmake-cmakelists-template.txt
+make_template=$templates_path/cmake-makefile-template
+
+c_standard=11
+cxx_standard=14
+
+use_version=1
+use_conf_file=1
+use_git=1
+
+verbose=1
+
+project=""
+project_dir=""
+exec=""
+src="./src"
+bld="./build"
+# C or CXX
+ctype="C"
+c_ext="c"
+h_ext="h"
+standard=$c_standard
+
+SHOW_HELP=0
+SHOW_VERSION=0
+
+ret=""
+
+function error() {
+	echo -e "$NAME \033[31merror\033[38m - $1"
+	exit $2
+}
+
+function vecho() {
+	if [ $verbose -eq 1 ]; then
+		echo -e $NAME $@
+	fi
+}
+
+function two_arg_check() {
+	if [[ "$#" > 1 ]]; then
+		ret=$2
+	else
+		error "no value after $1" 1
+	fi
+}
+
+
+#parameter parse
+while [[ "$#" > 0 ]]; do
+	# -argument value : 2 args (space sep)
+	case $1 in
+		-s|--src)
+			two_arg_check $1 $2
+			src=$ret
+			shift
+			shift
+			;;
+		-b|--bld)
+			two_arg_check $1 $2
+			bld=$ret
+			shift
+			shift
+			;;
+		-e|--exec)
+			two_arg_check $1 $2
+			exec=$ret
+			shift
+			shift
+			;;
+		-d|--project-dir)
+			two_arg_check $1 $2
+			project_dir=$ret
+			shift
+			shift
+			;;
+		-h | -help | --help)
+			SHOW_HELP=1
+			shift
+			;;
+		-version | --version)
+			SHOW_VERSION=1
+			shift
+			;;
+		-v | --verbose)
+			verbose=1
+			shift
+			;;
+		-c | -c++ | -cpp | -cxx)
+			if [[ $1 == -c ]]; then
+				ctype=C
+				c_ext="c"
+				h_ext="h"
+			else
+				ctype=CXX
+				c_ext="c${1:2:2}"
+				h_ext="h${1:2:2}"
+			fi
+			shift
+			;;
+		-nv | --no-version)
+			use_version=0
+			shift
+			;;
+		-nc | --no-conf-file)
+			use_conf_file=0
+			shift
+			;;
+		-ng | --no-git)
+			use_git=0
+			shift
+			;;
+		-*)
+			error "unknown option $1\n  see --help for details" 2;
+			;;
+		*)
+			if [[ "$project" != "" ]]; then
+				error "multiple project names entered ('$project' and '$1')\n  see --help for details"
+			fi
+			project=$1
+			shift
+			;;
+	esac
+
+done;
+
+if [ $SHOW_HELP -eq 1 ]; then
+	echo -e "$NAME (version $VERSION) help:"
+	echo "  Small utility script for creating C/C++ cmake projects"
+	echo "  Copies templates from:"
+	echo -e "    - '$cmake_template'\t(CMakeLists.txt)"
+	echo -e "    - '$make_template'\t\t(makefile wrapping cmake)"
+	echo -e "    - '$c_template'\t\t(main C/C++ source file)"
+	echo -e "    - '$h_template'\t(project header file)"
+	echo ""
+	echo "  Usage:"
+	echo -e "    \033[93mnewcmake \033[33mproject_name\033[38m"
+	echo ""
+	echo "  Arguments:"
+	echo -e "    \033[33m-e --exec        \033[32m<string>\033[38m executable name (default is project_name in lowercase)"
+	echo -e "    \033[33m-d --project-dir \033[32m<path>  \033[38m directory to create project in (default is project_name)"
+	echo -e "    \033[33m-s --src         \033[32m<rpath> \033[38m project source dir, relative do project_dir (default is ./src)"
+	echo -e "    \033[33m-b --bld         \033[32m<rpath> \033[38m project build dir, relative do project_dir (default is ./build)"
+	echo ""
+	echo "  Options:"
+	echo -e "    \033[33m-c -cpp -cxx -c++ \033[38m select c/c++ (default is -c)"
+	echo -e "    \033[33m-ng --no-git      \033[38m don't init git repository in project dir"
+	echo -e "    \033[33m-nv --no-version  \033[38m don't use version numbre in cmake/header template"
+	echo -e "    \033[33m-nc --no-conf-file\033[38m don't create cmake configured project header file"
+	echo -e "    \033[33m-help --help\033[38m       show this help"
+	echo -e "    \033[33m--version\033[38m          show version"
+	echo -e "    \033[33m-v --verbose\033[38m       show actions done"
+	echo ""
+	exit 0
+else
+	if [ $SHOW_VERSION -eq 1 ]; then
+		echo -e "$NAME version $VERSION"
+		exit 0
+	fi
+fi
+
+#checking variables
+if [[ $project == "" ]]; then
+	error "no project name give.\n  see --help for details"
+fi
+if [[ $src != ./* ]]; then
+	src=./$src
+fi
+if [[ $bld != ./* ]]; then
+	bld=./$bld
+fi
+if [[ $project_dir == "" ]]; then
+	project_dir=$project
+fi
+if [[ $exec == "" ]]; then
+	exec=${project,,}
+fi
+
+
+if ! [ -d $project_dir ]; then
+	vecho "creating project directory '$project_dir'"
+	mkdir $project_dir
+fi
+cd $project_dir
+
+if ! [ -d $src ]; then
+	vecho "creating sources directory '$src'"
+	mkdir $src
+fi
+
+vecho "creating file 'CMakeLists.txt'"
+cp "$cmake_template" "CMakeLists.txt"
+
+vecho "creating file 'makefile'"
+cp "$make_template" "makefile"
+
+vecho "creating file '$src/main.$c_ext'"
+cp "$c_template" "$src/main.$c_ext"
+
+files=("CMakeLists.txt" "makefile" "$src/main.$c_ext")
+
+if [ $use_conf_file -eq 1 ]; then
+	vecho "creating file '$src/project.$h_ext.in'"
+	cp "$h_template" "$src/project.$h_ext.in"
+	files=("CMakeLists.txt" "makefile" "$src/main.$c_ext" "$src/project.$h_ext.in")
+fi
+
+#defining variables for replacement
+if [ $use_version -eq 1 ]; then
+	v1=""
+	v2=""
+else
+	v1="# "
+	v2="// "
+fi
+
+if [[ $ctype == "C" ]]; then
+	io_file="<stdio.h>"
+	stdprefix=""
+	standard=$c_standard
+else
+	io_file="<iostream>"
+	stdprefix="std::"
+	standard=$cxx_standard
+fi
+
+if [ $use_conf_file -eq 1 ]; then
+	include="\n#include \"project.$h_ext\"\n"
+	v3=""
+else
+	include=""
+	v3="# "
+fi
+next="${h_ext//+/p}"
+
+vars=("PROJECT" "PROJECT_CAPS" "USE_VERSION_CMT" "USE_VERSION_CMT_C" "USE_CONF_FILE_CMT" \
+			"CAPS_C" "H_EXT" "C_EXT" "H_EXT_CAPS" "SRC" "BLD" "EXEC" "SRC_NM"\
+			"IO_FILE" "STD_PREFIX" "INCLUDE_PROJECT_H" "C_STANDARD")
+
+vals=("$project" "${project^^}" "$v1" "$v2" "$v3" \
+			"$ctype" "$h_ext" "$c_ext" "${next^^}" "$src" "$bld" "$exec" "${src:2:200}"\
+			"$io_file" "$std_prefix" "$include", "$standard")
+
+vecho "replacing variables in files"
+for fpath in ${files[*]}
+do
+	for index in ${!vals[*]}
+	do
+		sed -i "s%\$\[${vars[$index]}\]%${vals[$index]}%g" "$fpath"
+	done
+done
+
+if [ $use_git -eq 1 ]; then
+	vecho "Initing git repository"
+	git init
+	vecho "Writing .gitignore"
+	echo "${bld:2:200}/" > .gitignore
+	git add .gitignore CMakeLists.txt makefile
+	git add "$src/main.$c_ext"
+	if [ $use_conf_file -eq 1 ]; then
+		git add "$src/project.$h_ext.in"
+	fi
+	if [[ $ctype == "C" ]]; then
+		git commit -m "Build environment for C project"
+	else
+		git commit -m "Build environment for C++ project"
+	fi
+fi

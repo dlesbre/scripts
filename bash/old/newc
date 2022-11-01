@@ -1,0 +1,134 @@
+#!/usr/bin/bash
+# bash script to init c/cpp and h/hpp files
+# see help for details
+# author: Dorian Lesbre
+
+VERSION="1.1"
+NAME="\033[93mnewc:\033[38m"
+
+TEMPLATES_PATH=~/Templates
+C_TEMPLATE=$TEMPLATES_PATH/c-file-template.c
+CH_C_TEMPLATE=$TEMPLATES_PATH/ch-file-template.c
+CH_H_TEMPLATE=$TEMPLATES_PATH/ch-header-template.h
+
+#explicit extension or deduced from file name?
+EXPLICIT=0
+USE_H=0
+EXT=
+SHOW_HELP=0
+SHOW_VERSION=0
+file=""
+
+for arg in $@
+do
+	case $arg in
+		-help | --help)
+			SHOW_HELP=1
+			;;
+		-v | -version | --version)
+			SHOW_VERSION=1
+			;;
+		-h | -hpp | -hxx | h++)
+			if [ $EXPLICIT -eq 1 ]; then
+				echo -e "$NAME: error - multiple explicit formats specified (-h -c...)"
+				exit 1
+			fi
+			USE_H=1
+			EXT=${arg:2:2}
+			EXPLICIT=1
+			;;
+		-c | -cpp | -cxx | c++)
+			if [ $EXPLICIT -eq 1 ]; then
+				echo -e "$NAME: error - multiple explicit formats specified (-h -c...)"
+				exit 1
+			fi
+			USE_H=0
+			EXT=${arg:2:2}
+			EXPLICIT=1
+			;;
+		-*)
+			echo -e "$NAME unknown option $arg.";
+			echo -e "  usage: newc [-h/c/hpp/cpp] [name] [--version] [--help]";
+			exit 1
+			;;
+		*)
+			if [[ "$file" != "" ]]; then
+				echo -e "$NAME error - multiple file names entered"
+				exit 1
+			fi
+			path="$arg"
+			file="${path%%.*}"
+			ext="${path##*.}"
+			if [[ "$file" == "$ext" ]]; then
+				ext=""
+			fi
+			if [ $EXPLICIT -eq 0 ]; then
+				if [[ "$ext" == h* ]]; then
+					USE_H=1
+					EXT="${ext:1:2}"
+				fi
+				if [[ $ext == c* ]]; then
+					USE_H=0
+					EXT="${ext:1:2}"
+				fi
+			fi
+			;;
+	esac
+done
+
+if [ $SHOW_HELP -eq 1 ]; then
+	echo -e "$NAME (version $VERSION) help:"
+	echo "  Small utility script for copying C/C++ file and header templates."
+	echo "  Copies templates from:"
+	echo -e "    - '$C_TEMPLATE' (Lone C/C++ file)"
+	echo -e "    - '$CH_H_TEMPLATE' and '$CH_C_TEMPLATE' (file and header)"
+	echo ""
+	echo "  Usage:"
+	echo -e "    \033[93mnewc \033[33mpath_to_newfile\033[38m"
+	echo ""
+	echo "  Options:"
+	echo -e "    \033[33m-h -hpp -hxx -h++\033[38m header/file pair with the matching extension"
+	echo -e "    \033[33m-c -cpp -cxx -c++\033[38m lone file the matching extension (default is -c)"
+	echo -e "    \033[33m-help --help\033[38m      show this help"
+	echo -e "    \033[33m-v --version\033[38m      show version"
+	echo ""
+	exit 0
+else
+	if [ $SHOW_VERSION -eq 1 ]; then
+		echo -e "$NAME version $VERSION"
+		exit 0
+	fi
+fi
+
+if [[ "$file" == "" ]]; then
+	echo -e "$NAME: error - no file name entered"
+	exit 1
+fi
+
+next="${EXT//+/p}"
+
+variables=("FILE_NAME" "FILE_H_EXT" "CAPS_FILE_NAME" "CAPS_FILE_H_EXT" "FILE_C_EXT")
+values=("$file" "h$EXT" "${file^^}" "H${EXT^^}" "c$EXT")
+
+if [ $USE_H -eq 1 ]; then
+	cp "$CH_H_TEMPLATE" "$file.h$EXT"
+	cp "$CH_C_TEMPLATE" "$file.c$EXT"
+
+	files=("$file.h$EXT" "$file.c$EXT")
+
+	echo -e "$NAME created '$file.h$EXT' and '$file.c$EXT'"
+else
+	cp "$C_TEMPLATE" "$file.c$EXT"
+
+	files=("$file.c$EXT")
+
+	echo -e "$NAME created '$file.c$EXT'"
+fi
+
+for fpath in ${files[*]}
+do
+	for index in ${!values[*]}
+	do
+		sed -i "s%\$\[${variables[$index]}\]%${values[$index]}%g" "$fpath"
+	done
+done
