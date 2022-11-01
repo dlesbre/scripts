@@ -1,0 +1,43 @@
+#!/usr/bin/bash
+# bash script to display and run hard to remember unix commands
+# see help for details
+# author: Dorian Lesbre
+
+a="\033[93m"
+b="\033[38m"
+
+
+echo -e "${a}[1] : display file and subfolder size in current directory${b}"
+echo -e "  du -shc *"
+echo -e "  du -shc .[!.]* * | sort -h"
+echo -e "${a}[2] : update kubuntu${b}"
+echo -e "  do-release-upgrade -m desktop"
+echo -e "${a}[3] : remove trailing whitespace in all files in subfolders${b}"
+echo -e "  for file in \$(find src); do if test -f \$file; then echo \$file; sed -i 's/[[:space:]]*$//' \$file; fi done ;"
+echo -e "${a}[4] : remove truecrypt lock/bug${b}"
+echo -e "  rm -f ~/.TrueCrypt-lock-dorian"
+echo -e "${a}[5] : pattern rename files${b}"
+echo -e "  for file in <pattern>; do echo \"\$file\"; echo \"\${file/<find regex>/<replace>}\"; done"
+echo -e "  for file in <pattern>; do mv -v \"\$file\" \"\${file/<find regex>/<replace>}\"; done"
+echo -e "${a}[6] : count files in <directory>${b}"
+echo -e "  find <dir> -type f | wc -l"
+echo -e "${a}[7] : set up and run virtual environement${b}"
+echo -e "  (create)     python3 -m venv <env_name>"
+echo -e "  (activate)   source ./<env_name>/bin/activate"
+echo -e "  (run django) python manage.py runserver"
+echo -e "${a}[8] : ssh keygen${b}"
+echo -e "  ssh-keygen -a 100 -t ed25519 -f /home/dorian/.ssh/id_xxx -C \"Message\""
+echo -e "${a}[9] : gpg keys${b}"
+echo -e "  generate :       gpg --full-generate-key"
+echo -e "  export pub :     gpg --output public.pgp --armor --export dorian.lesbre@gmail.com"
+echo -e "  export private : gpg --output private.pgp --armor --export-secret-key dorian.lesbre@gmail.com"
+echo -e "${a}[9] : restart audio${b}"
+echo -e "  pulseaudio --kill"
+echo -e "  pulseaudio --start"
+echo -e "${a}[10] : autoclicker${b}"
+echo -e "  xdotool click --repeat <number> --delay <time in ms> <mouse button (1)>"
+echo -e "${a}[11] : system clock shenanigans${b}"
+echo -e "  Use local on clock (same as windows) : timedatectl set-local-rtc 1 --adjust-system-clock"
+echo -e "  Restore default :                      timedatectl set-local-rtc 0 --adjust-system-clock"
+echo -e "${a}[12] SCP via SSH${b}"
+echo -e "  scp -r dlesbre@sas.eleves.ens.fr:~/www/files www/"

@@ -1,0 +1,94 @@
+#!/usr/bin/bash
+# bash script to test audio left/right channels
+# see help for details
+# author: Dorian Lesbre
+
+VERSION="0.1"
+NAME="\033[93maudiotest:\033[38m"
+
+audio_path=~/Programs/Scripts/data/audio
+on_ogg="$audio_path/On.ogg"
+off_ogg="$audio_path/Off.ogg"
+
+SHOW_HELP=0
+SHOW_VERSION=0
+
+# 0 - terminal+stereo
+# 1 - caps lock + left
+# 2 - num lock + right
+mode=0
+
+function error() {
+	echo -e "$NAME \033[31merror\033[38m - $1"
+	exit $2
+}
+
+#parameter parse
+while [[ "$#" > 0 ]]; do
+	case $1 in
+		caps_lock)
+			mode=1
+			shift
+			;;
+		num_lock)
+			mode=2
+			shift
+			;;
+		-h | -help | --help)
+			SHOW_HELP=1
+			shift
+			;;
+		-version | --version)
+			SHOW_VERSION=1
+			shift
+			;;
+		-v | --verbose)
+			verbose=1
+			shifgit=0
+			shift
+			;;
+		*)
+			error "unknown option $1\n  see --help for details" 2;
+			;;
+	esac
+done;
+
+if [ $SHOW_HELP -eq 1 ]; then
+	echo -e "$NAME (version $VERSION) help:"
+	echo "  Small script for testing audio and stereo"
+	echo "  It is meant to be bound to hotkeys capslock and numlock"
+	echo "  Usage:"
+	echo -e "    \033[93maudiotest \033[33m         \033[38m test both channels succesively"
+	echo -e "    \033[93maudiotest \033[33mcaps_lock\033[38m test left channel"
+	echo -e "    \033[93maudiotest \033[33mnum_lock \033[38m test right channel"
+	echo ""
+	echo "  Options:"
+	echo -e "    \033[33m-h --help   \033[38m show this help"
+	echo -e "    \033[33m-v --version\033[38m show version"
+	echo ""
+	exit 0
+else
+	if [ $SHOW_VERSION -eq 1 ]; then
+		echo -e "$NAME version $VERSION"
+		exit 0
+	fi
+fi
+
+if [ $mode -eq 0 ]; then
+	echo -e "$NAME testing left stereo"
+	paplay "$on_ogg" --channel-map=front-left
+	echo -e "$NAME testing right stereo"
+	paplay "$on_ogg" --channel-map=front-right
+fi
+if [ $mode -eq 1 ]; then
+	# caps lock
+	sleep 0.1
+	xset q | grep -c 'Caps Lock:[[:space:]]*on' > /dev/null && file="$on_ogg" || file="$off_ogg"
+	paplay "$file" --channel-map=front-left
+fi
+if [ $mode -eq 2 ]; then
+	# num lock
+	sleep 0.1
+	xset q | grep -c 'Num Lock:[[:space:]]*on' > /dev/null && file="$on_ogg" || file="$off_ogg"
+	paplay "$file" --channel-map=front-right
+fi
