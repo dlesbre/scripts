@@ -1,5 +1,6 @@
 """
-Defining and configuring the logger
+Custom logger using ANSI format, thread info
+and extra VERBOSE_INFO, VERBOSE_DEBUG and VERY_VERBOSE_DEBUG levels
 """
 
 import logging
@@ -7,7 +8,7 @@ from sys import stderr, stdout
 from threading import current_thread, main_thread
 from typing import Any
 
-from ansi import ansi_format
+from .ansi import ansi_format
 
 Level = int
 

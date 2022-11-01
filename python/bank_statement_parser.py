@@ -1,12 +1,15 @@
-from typing import NamedTuple, Callable, Iterator, Any
-from logger import Logger
-from datetime import date
-from re import match
-from pathlib import Path
-from os import listdir
-from subprocess import run, PIPE
-from dataclasses import dataclass
+#! /usr/bin/env python3
+from argparse import ArgumentParser
 from csv import writer
+from dataclasses import dataclass
+from datetime import date
+from os import listdir
+from pathlib import Path
+from re import match
+from subprocess import PIPE, run
+from typing import Any, Callable, Iterator, NamedTuple
+
+from common.logger import Logger
 
 logger = Logger("Fortuneo reader")
 
@@ -238,6 +241,7 @@ def parse_txt(plain_file: str, is_credit: Callable[[str], bool]) -> ParseResult:
 
 
 def parse_pdf(path: Path) -> ParseResult:
+    """Turn a pdf into plaintext with less, then parse it"""
     proc = run(f"less '{path}'", stdout=PIPE, shell=True)
     if proc.returncode != 0:
         logger.error("Could not parse '{path}'")
@@ -274,8 +278,8 @@ def parse_pdf(path: Path) -> ParseResult:
     return res
 
 
-# logger.set_verbosity(2)
 def parse_all_in(folder: Path) -> list[ParseResult]:
+    """Parse all files found in the given folder"""
     files = listdir(folder)
     res = []
     for file in files:
@@ -284,11 +288,8 @@ def parse_all_in(folder: Path) -> list[ParseResult]:
     return res
 
 
-def safe_csv(value: str):
-    return value.replace('"', '""')
-
-
 def to_csv(contents: list[ParseResult], path: Path) -> None:
+    """Print parse results to a CSV file"""
     transactions = [y for x in contents for y in x.data]
     with open(path, "w") as file:
         w = writer(file)
@@ -296,5 +297,14 @@ def to_csv(contents: list[ParseResult], path: Path) -> None:
             w.writerow(transaction)
 
 
-res = parse_all_in(Path("/home/dorian/Downloads/Releves de compte/"))
-to_csv(res, Path("./fortuneo_transactions.csv"))
+parser = ArgumentParser("bank_statement_parser")
+parser.add_argument("input_folder", type=Path)
+parser.add_argument(
+    "output_csv", type=Path, nargs="?", default=Path("./fortuneo_transactions.csv")
+)
+
+if __name__ == "__main__":
+    args = parser.parse_args()
+    # logger.set_verbosity(2)
+    res = parse_all_in(args.input_folder)
+    to_csv(res, args.output_csv)
