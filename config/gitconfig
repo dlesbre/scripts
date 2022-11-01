@@ -1,6 +1,7 @@
 [user]
 	name = Dorian Lesbre
 	email = dorian.lesbre@ens.fr
+	signingkey = BDD4636D4063A7499823997D0E3BF5D6EAC33D56
 [core]
 	editor = nano
 	whitespace = trailing-space,tabwidth=2,cr-at-eol,space-before-tab
