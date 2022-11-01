@@ -1,16 +1,20 @@
-# Toshiba disk sync:
+#!/usr/bin/bash
+# Disk sync:
 # dry-run: -n --dry-run
 # --ignore-existing --size-only --progress
-alias sync="rsync --size-only -vr --exclude '*.git/*' --exclude '*/venv/*' --exclude '*/build/*' --exclude '*/__pycache__/*' --exclude '*cache' --exclude '*node_modules*'"
-sync /home/dorian/Documents/ /media/dorian/TOSHIBA\ EXT/Documents/ 
-sync --size-only /home/dorian/Pictures/ /media/dorian/TOSHIBA\ EXT/Photos/
-sync --size-only /home/dorian/Music/ /media/dorian/TOSHIBA\ EXT/Musique/
-sync --delete-after /home/dorian/.local/share/plasma-vault/Admin.enc/ /media/dorian/TOSHIBA\ EXT/Vault/Admin.enc/
-sync /home/dorian/Templates/ /media/dorian/TOSHIBA\ EXT/Programmes/Templates/
-sync /home/dorian/texmf/tex/latex/custom/ /media/dorian/TOSHIBA\ EXT/Programmes/LaTeX/
-cp /home/dorian/.bashrc /home/dorian/Programs/bashrc
-cp /home/dorian/.inputrc /home/dorian/Programs/inputrc
-cp /home/dorian/.python_start.py /home/dorian/Programs/python_start.py
-sync --exclude '*MuseScore-3.2.3-x86_64/*' /home/dorian/Programs/ /media/dorian/TOSHIBA\ EXT/Programmes/
-cp /home/dorian/Vaults/KeePass.kdbx /media/dorian/TOSHIBA\ EXT/Vault/
-sync /home/dorian/.thunderbird/ /media/dorian/TOSHIBA\ EXT/Programmes/thunderbird/
+SRC=/home/dorian
+DST=/media/dorian/TOSHIBA\ EXT
+alias sync="rsync -vr --exclude '*.git/*' --exclude '*/venv/*' --exclude '*/build/*' --exclude '*/__pycache__/*' --exclude '*cache' --exclude '*node_modules*'"
+sync $SRC/Documents/ $DST/Documents/
+sync --size-only $SRC/Pictures/ $DST/Photos/
+sync --size-only $SRC/Music/ $DST/Musique/
+sync --delete-after $SRC/.local/share/plasma-vault/Admin.enc/ $DST/Vault/Admin.enc/
+sync $SRC/Templates/ $DST/Programmes/Templates/
+sync $SRC/texmf/tex/latex/custom/ $DST/Programmes/LaTeX/
+cp $SRC/.bashrc $SRC/Programs/bashrc
+cp $SRC/.inputrc $SRC/Programs/inputrc
+cp $SRC/.python_start.py $SRC/Programs/python_start.py
+cp $SRC/.gitconfig $SRC/Programs/gitconfig
+sync $SRC/Programs/ $DST/Programmes/
+cp $SRC/Vaults/KeePass.kdbx $DST/Vault/
+sync $SRC/.thunderbird/ $DST/Programmes/thunderbird/
