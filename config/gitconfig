@@ -1,0 +1,15 @@
+[user]
+	name = Dorian Lesbre
+	email = dorian.lesbre@ens.fr
+[core]
+	editor = nano
+	whitespace = trailing-space,tabwidth=2,cr-at-eol,space-before-tab
+	autocrlf = input
+[checkout]
+	defaultRemote = origin
+[pull]
+	rebase = true
+[alias]
+	graph = log --all --graph --decorate
+	gore = log --all --graph --decorate --pretty=oneline
+	oneline = log --pretty=oneline
