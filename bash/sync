@@ -4,17 +4,21 @@
 # --ignore-existing --size-only --progress
 SRC=/home/dorian
 DST=/media/dorian/TOSHIBA\ EXT
+
 alias sync="rsync -vr --exclude '*.git/*' --exclude '*/venv/*' --exclude '*/build/*' --exclude '*/__pycache__/*' --exclude '*cache' --exclude '*node_modules*'"
+
 sync $SRC/Documents/ $DST/Documents/
 sync --size-only $SRC/Pictures/ $DST/Photos/
 sync --size-only $SRC/Music/ $DST/Musique/
 sync --delete-after $SRC/.local/share/plasma-vault/Admin.enc/ $DST/Vault/Admin.enc/
 sync $SRC/Templates/ $DST/Programmes/Templates/
 sync $SRC/texmf/tex/latex/custom/ $DST/Programmes/LaTeX/
+
 cp $SRC/.bashrc $SRC/Programs/bashrc
 cp $SRC/.inputrc $SRC/Programs/inputrc
 cp $SRC/.python_start.py $SRC/Programs/python_start.py
 cp $SRC/.gitconfig $SRC/Programs/gitconfig
 sync $SRC/Programs/ $DST/Programmes/
+
 cp $SRC/Vaults/KeePass.kdbx $DST/Vault/
 sync $SRC/.thunderbird/ $DST/Programmes/thunderbird/
