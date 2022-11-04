@@ -80,7 +80,7 @@ class FilterColumnNotIn(CSVFilter):
         return len(row) > self.column and row[self.column] not in self.filter_out
 
 
-parser = ArgumentParser("bank_statement_parser")
+parser = ArgumentParser("csv_map.py")
 parser.add_argument("input", type=Path)
 parser.add_argument("output", type=Path, nargs="?", default=Path("./output.csv"))
 
