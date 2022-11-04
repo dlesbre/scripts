@@ -1,0 +1,25 @@
+{
+    "window.zoomLevel": 2,
+    "files.trimTrailingWhitespace": true,
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2,
+    "editor.fontFamily": "'Fira Code Retina', 'Droid Sans Mono', 'monospace', monospace",
+    "editor.fontLigatures": true,
+    "editor.minimap.enabled": false,
+    "workbench.editor.highlightModifiedTabs": true,
+    "editor.renderWhitespace": "boundary",
+    "python.languageServer": "Pylance",
+    "python.linting.flake8Enabled": true,
+    "python.linting.mypyEnabled": true,
+    "python.formatting.provider": "black",
+    "python.linting.flake8Args": [
+        "--max-line-length=120"
+    ],
+    "python.diagnostics.sourceMapsEnabled": true,
+    "ltex.language": "fr",
+    "[python]": {
+        "editor.tabSize": 4
+    }
+}
