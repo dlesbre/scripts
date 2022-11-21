@@ -1,5 +1,4 @@
 {
-    "window.zoomLevel": 2,
     "files.trimTrailingWhitespace": true,
     "files.insertFinalNewline": true,
     "files.trimFinalNewlines": true,
@@ -21,5 +20,12 @@
     "ltex.language": "fr",
     "[python]": {
         "editor.tabSize": 4
-    }
+    },
+    "ocaml.trace.server": "verbose",
+    "window.zoomLevel": 2,
+    "diffEditor.renderSideBySide": false,
+    "search.useGlobalIgnoreFiles": true,
+    "search.useParentIgnoreFiles": true,
+    "explorer.excludeGitIgnore": true,
+    "workbench.activityBar.visible": false
 }

@@ -82,8 +82,10 @@ class FilterColumnNotIn(CSVFilter):
 
 parser = ArgumentParser("csv_map.py")
 parser.add_argument("input", type=Path)
+parser.add_argument("column", type=int)
 parser.add_argument("output", type=Path, nargs="?", default=Path("./output.csv"))
 
 if __name__ == "__main__":
     args = parser.parse_args()
+    FilterColumnNotIn.column = args.column
     FilterColumnNotIn.from_files(args.input, args.output)
