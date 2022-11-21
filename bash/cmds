@@ -41,3 +41,7 @@ echo -e "  Use local on clock (same as windows) : timedatectl set-local-rtc 1 --
 echo -e "  Restore default :                      timedatectl set-local-rtc 0 --adjust-system-clock"
 echo -e "${a}[12] SCP via SSH${b}"
 echo -e "  scp -r dlesbre@sas.eleves.ens.fr:~/www/files www/"
+echo -e "${a}[13] Pretty-display of logs${b}"
+echo -e "  sudo dmesg"
+echo -e "${a}[14] Don't set to manually installed${b}"
+echo -e "  sudo apt-mark auto <pkg>"
