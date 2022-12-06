@@ -22,10 +22,9 @@
         "editor.tabSize": 4
     },
     "ocaml.trace.server": "verbose",
-    "window.zoomLevel": 2,
     "diffEditor.renderSideBySide": false,
     "search.useGlobalIgnoreFiles": true,
     "search.useParentIgnoreFiles": true,
     "explorer.excludeGitIgnore": true,
-    "workbench.activityBar.visible": false
+    "window.zoomLevel": 1
 }
