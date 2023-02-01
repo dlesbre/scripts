@@ -30,5 +30,7 @@
     "window.zoomLevel": 1,
     "latex-workshop.bibtex-format.tab": "tab",
     "latex-workshop.bibtex-format.trailingComma": true,
-    "latex-workshop.latex.autoBuild.run": "never"
+    "latex-workshop.latex.autoBuild.run": "never",
+    "breadcrumbs.enabled": false,
+    "redhat.telemetry.enabled": false
 }

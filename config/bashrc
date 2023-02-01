@@ -133,7 +133,7 @@ fi
 #
 
 # add links folder to cdpath
-export CDPATH=~/links
+export CDPATH="~/links:$CDPATH"
 export INPUTRC=~/.inputrc
 
 #LS_Colors

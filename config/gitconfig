@@ -3,9 +3,9 @@
 	email = dorian.lesbre@gmail.com
 	signingkey = BDD4636D4063A7499823997D0E3BF5D6EAC33D56
 [core]
-	editor = nano
 	whitespace = trailing-space,tabwidth=2,cr-at-eol,space-before-tab
 	autocrlf = input
+	editor = codium
 [checkout]
 	defaultRemote = origin
 [pull]
@@ -16,3 +16,5 @@
 	oneline = log --pretty=oneline
 [commit]
 	gpgsign = true
+[init]
+	defaultBranch = main
