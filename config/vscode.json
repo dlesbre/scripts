@@ -6,7 +6,6 @@
     "editor.tabSize": 2,
     "editor.fontFamily": "'Fira Code Retina', 'Droid Sans Mono', 'monospace', monospace",
     "editor.fontLigatures": true,
-    "editor.minimap.enabled": false,
     "workbench.editor.highlightModifiedTabs": true,
     "editor.renderWhitespace": "boundary",
     "python.languageServer": "Pylance",
@@ -32,5 +31,10 @@
     "latex-workshop.bibtex-format.trailingComma": true,
     "latex-workshop.latex.autoBuild.run": "never",
     "breadcrumbs.enabled": false,
-    "redhat.telemetry.enabled": false
+    "gitlens.rebaseEditor.ordering": "asc",
+    "workbench.colorTheme": "Default Dark+ Experimental",
+    "git.suggestSmartCommit": false,
+    "editor.minimap.enabled": false,
+    "coq-lsp.show_stats_on_hover": false,
+    "diffEditor.ignoreTrimWhitespace": false
 }
