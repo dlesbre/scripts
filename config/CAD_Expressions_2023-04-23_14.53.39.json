@@ -1,6 +1,14 @@
 {
   "default": [
     {
+      "expression": "*.dropbox.com",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cleanSiteData": [],
+      "cookieNames": [],
+      "id": "nrsNq-Q8Y"
+    },
+    {
       "expression": "*.ens.fr",
       "listType": "WHITE",
       "storeId": "default",
