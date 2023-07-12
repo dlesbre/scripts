@@ -36,5 +36,17 @@
     "git.suggestSmartCommit": false,
     "editor.minimap.enabled": false,
     "coq-lsp.show_stats_on_hover": false,
-    "diffEditor.ignoreTrimWhitespace": false
+    "diffEditor.ignoreTrimWhitespace": false,
+    "ltex.latex.commands": {
+        "\\newtarget{}": "ignore",
+        "\\newdef{}": "ignore"
+    },
+    "diffEditor.diffAlgorithm": "advanced",
+    "editor.rulers": [
+        80,
+        100
+    ],
+    "texlab.experimental.mathEnvironments": [
+        "mathpar"
+    ]
 }

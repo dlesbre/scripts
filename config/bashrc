@@ -143,6 +143,7 @@ export LS_COLORS="rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;
 export PATH=~/Programs/github/scripts/bash:$PATH
 export PATH=~/Programs/github/scripts/python:$PATH
 export PATH=~/Programs/github/tex/scripts:$PATH
+export PATH=~/.local/bin:$PATH
 
 # rust
 export PATH="$HOME/.cargo/bin:$PATH"
@@ -156,7 +157,7 @@ eval $(opam env)
 # fl
 # export PATH="$HOME/links/stage/VossII/bin:$PATH"
 # alias fl='/home/dorian/links/stage/VossII/bin/fl'
-#alias stately='java -jar /home/dorian/links/stage/stately/Stately.jar'
+# alias stately='java -jar /home/dorian/links/stage/stately/Stately.jar'
 
 # custom alias
 alias vpn='sudo openvpn ~/eleves.ovpn'
@@ -168,3 +169,6 @@ alias venv='source venv/bin/activate'
 # PS1="\033[32;1muser@computer\033[0m:\033[34;1m~\033[0m$ "
 
 export PYTHONSTARTUP="$HOME/.python_start.py"
+
+# Starship
+eval "$(starship init bash)"
