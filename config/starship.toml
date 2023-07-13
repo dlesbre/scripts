@@ -17,21 +17,21 @@
 
 # BG gradient
 # #9A348E
-# #DA627D -> #B8405B directories
-# #FCA17D git
-# #86BBD8 code
+# #A51D2D -> #B8405B directories
+# #C64600 git
+# #613583 code
+# #06969A timer
 
 format = """
-[](#9A348E)\
 $os\
 $username\
-[](bg:#DA627D fg:#9A348E)\
+[ ](bg:#A51D2D fg:#9A348E)\
 $directory${custom.directories}${custom.files}\
-[](fg:#DA627D bg:#FCA17D)\
+[](fg:#A51D2D bg:#C64600)\
 $git_branch\
 ${custom.giturl}\
 $git_status\
-[](fg:#FCA17D bg:#86BBD8)\
+[](fg:#C64600 bg:#613583)\
 $c$cmake$cobol$daml$dart$deno$dotnet\
 $elixir\
 $elm$erlang$fennel\
@@ -47,7 +47,7 @@ $nim\
 $rust\
 $scala\
 $solidity$swift$terraform$vlang$vagrant$zig$buf$guix_shell$nix_shell$conda$meson$spack\
-[](fg:#86BBD8 bg:#06969A)\
+[](fg:#613583 bg:#06969A)\
 $docker_context\
 $custom$sudo$cmd_duration\
 [](fg:#06969A bg:#33658A)\
@@ -56,6 +56,11 @@ $jobs$battery$time\
 [ ](fg:#33658A)\
 
 """
+[cmd_duration]
+min_time = 2000
+format = "[  $duration ]($style)"
+style = "bg:#06969A"
+
 
 [character]
 # format = "$symbol "
@@ -74,7 +79,7 @@ error_symbol = "[❯❯❯](bold red)"
 # use_logical_path = true
 format = "[ $path$readonly ]($style)"
 # repo_root_format = "[$before_root_path]($before_repo_root_style)[$repo_root]($repo_root_style)[$path]($style)[$read_only]($read_only_style) "
-style = "bg:#DA627D bold"
+style = "bg:#A51D2D bold"
 read_only = " 󰌾"
 # disabled = false
 # read_only = "🔒"
@@ -93,7 +98,7 @@ truncation_symbol = "…/"
 format = "[ $symbol$branch(:$remote_branch) ]($style)"
 # symbol = " "
 symbol = " "
-style = "bg:#FCA17D bold"
+style = "bg:#C64600 bold"
 # truncation_length = 9223372036854775807
 # truncation_symbol = "…"
 # only_attached = false
@@ -103,7 +108,7 @@ style = "bg:#FCA17D bold"
 
 [git_status]
 format = '([$all_status$ahead_behind ]($style))'
-style = "bg:#FCA17D red"
+style = "bg:#C64600 green"
 # stashed = '\$'
 # ahead = "⇡"
 # behind = "⇣"
@@ -144,7 +149,7 @@ fi
 echo "$GIT_REMOTE_SYMBOL "
 """
 when = 'git rev-parse --is-inside-work-tree 2> /dev/null'
-style = "bg:#FCA17D"
+style = "bg:#C64600"
 format = "[$output ]($style)"
 
 [custom.coq]
@@ -158,20 +163,20 @@ detect_extensions = [
 detect_files = [
     "_CoqProject",
 ]
-style = "bg:#86BBD8"
+style = "bg:#613583"
 
 [custom.directories]
 description = "Show directory count count for current directory"
 command = "find ./ -maxdepth 1 -type d | tail -n +2 | wc -l"
-format = "[📁$output ]($style)"
-style = "bg:#DA627D"
+format = "[ $output ]($style)"
+style = "bg:#A51D2D"
 when = "true"
 
 [custom.files]
 description = "Show files count for current directory"
 command = "find ./ -maxdepth 1 -type f | wc -l"
-format = "[📝$output ]($style)"
-style = "bg:#DA627D"
+format = "[ $output ]($style)"
+style = "bg:#A51D2D"
 when = "true"
 
 [aws]
@@ -182,7 +187,7 @@ symbol = " "
 
 [c]
 symbol = " "
-format = "bg:#86BBD8"
+format = "bg:#613583"
 
 [conda]
 symbol = " "
@@ -247,7 +252,7 @@ symbol = " "
 [ocaml]
 symbol = " "
 format = "[ $symbol$version\\($switch_indicator$switch_name\\) ]($style)"
-style = "bg:#86BBD8"
+style = "bg:#613583"
 
 [os.symbols]
 Alpaquita = " "
@@ -299,7 +304,7 @@ symbol = "🪺 "
 [python]
 symbol = " "
 format = '[ ${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
-style = "bg:#86BBD8"
+style = "bg:#613583"
 
 [rlang]
 symbol = "󰟔 "
