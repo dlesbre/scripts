@@ -1,4 +1,61 @@
-format="$username$hostname$localip$shlvl$singularity$kubernetes$directory${custom.directories}${custom.files}$vcsh$fossil_branch$git_branch$git_commit$git_state$git_metrics${custom.giturl}$git_status$hg_branch$pijul_channel$docker_context$package$bun$c$cmake$cobol$daml$dart$deno$dotnet$elixir$elm$erlang$fennel$golang$gradle$haskell$haxe$helm$java$julia$kotlin$lua$nim$nodejs$ocaml$opa$perl$php$pulumi$purescript$python$raku$rlang$red$ruby$rust$scala$solidity$swift$terraform$vlang$vagrant$zig$buf$guix_shell$nix_shell$conda$meson$spack$memory_usage$aws$gcloud$openstack$azure$env_var$crystal$custom$sudo$cmd_duration$line_break$jobs$battery$time$status$container$os$shell$character"
+# format="""
+# $username\
+# $hostname\
+# $localip\
+# $shlvl\
+# $singularity\
+# $kubernetes
+# $directory${custom.directories}${custom.files}\
+# $vcsh$fossil_branch\
+# $git_branch$git_commit$git_state$git_metrics${custom.giturl}$git_status\
+# $hg_branch$pijul_channel$docker_context$package$bun\
+# $c$cmake$cobol$daml$dart$deno$dotnet\
+# $elixir$elm$erlang$fennel$golang$gradle$haskell$haxe$helm$java$julia$kotlin$lua$nim$nodejs$ocaml\
+# $opa$perl$php$pulumi$purescript$python$raku$rlang$red$ruby$rust$scala$solidity$swift$terraform$vlang$vagrant$zig$buf$guix_shell$nix_shell$conda$meson$spack\
+# $memory_usage$aws$gcloud$openstack$azure$env_var$crystal$custom$sudo$cmd_duration$line_break$jobs$battery$time$status$container$os$shell[ ](fg:#33658A)
+# """
+
+# BG gradient
+# #9A348E
+# #DA627D -> #B8405B directories
+# #FCA17D git
+# #86BBD8 code
+
+format = """
+[](#9A348E)\
+$os\
+$username\
+[](bg:#DA627D fg:#9A348E)\
+$directory${custom.directories}${custom.files}\
+[](fg:#DA627D bg:#FCA17D)\
+$git_branch\
+${custom.giturl}\
+$git_status\
+[](fg:#FCA17D bg:#86BBD8)\
+$c$cmake$cobol$daml$dart$deno$dotnet\
+$elixir\
+$elm$erlang$fennel\
+$golang\
+$gradle\
+$haskell$haxe$helm\
+$java\
+$julia$kotlin$lua$nim\
+$nodejs\
+$ocaml${custom.coq}\
+$opa$perl$php$pulumi$purescript$python$raku$rlang$red$ruby\
+$nim\
+$rust\
+$scala\
+$solidity$swift$terraform$vlang$vagrant$zig$buf$guix_shell$nix_shell$conda$meson$spack\
+[](fg:#86BBD8 bg:#06969A)\
+$docker_context\
+$custom$sudo$cmd_duration\
+[](fg:#06969A bg:#33658A)\
+$line_break\
+$jobs$battery$time\
+[ ](fg:#33658A)\
+
+"""
 
 [character]
 # format = "$symbol "
@@ -15,20 +72,28 @@ error_symbol = "[❯❯❯](bold red)"
 # truncate_to_repo = true
 # fish_style_pwd_dir_length = 0
 # use_logical_path = true
-# format = "[$path]($style)[$read_only]($read_only_style) "
+format = "[ $path$readonly ]($style)"
 # repo_root_format = "[$before_root_path]($before_repo_root_style)[$repo_root]($repo_root_style)[$path]($style)[$read_only]($read_only_style) "
-style = "blue bold"
+style = "bg:#DA627D bold"
+read_only = " 󰌾"
 # disabled = false
 # read_only = "🔒"
 # read_only_style = "red"
-# truncation_symbol = ""
+truncation_symbol = "…/"
 # home_symbol = "~"
 # use_os_path_sep = true
 
+[directory.substitutions]
+"Documents" = "󰈙 "
+"Downloads" = " "
+"Music" = " "
+"Pictures" = " "
+
 [git_branch]
-# format = "on [$symbol$branch(:$remote_branch)]($style) "
+format = "[ $symbol$branch(:$remote_branch) ]($style)"
 # symbol = " "
-style = "green"
+symbol = " "
+style = "bg:#FCA17D bold"
 # truncation_length = 9223372036854775807
 # truncation_symbol = "…"
 # only_attached = false
@@ -37,8 +102,8 @@ style = "green"
 # disabled = false
 
 [git_status]
-format = '([\[$all_status$ahead_behind\]]($style) )'
-style = "red"
+format = '([$all_status$ahead_behind ]($style))'
+style = "bg:#FCA17D red"
 # stashed = '\$'
 # ahead = "⇡"
 # behind = "⇣"
@@ -79,32 +144,187 @@ fi
 echo "$GIT_REMOTE_SYMBOL "
 """
 when = 'git rev-parse --is-inside-work-tree 2> /dev/null'
-style = "bright-yellow bold"
-format = "at [$output]($style) "
+style = "bg:#FCA17D"
+format = "[$output ]($style)"
 
 [custom.coq]
 description = "The currently installed version of Coq"
 command = "coqc --version | grep -Eo '[0-9]+\\.[0-9]+\\.[0-9]+' | head -n 1"
 symbol = "🐔"
-format = "via [$symbol( v$output )]($style) "
+format = "[ $symbol( v$output ) ]($style)"
 detect_extensions = [
     "v",
 ]
 detect_files = [
     "_CoqProject",
 ]
-style = "green bold"
+style = "bg:#86BBD8"
 
 [custom.directories]
 description = "Show directory count count for current directory"
 command = "find ./ -maxdepth 1 -type d | tail -n +2 | wc -l"
-format = "📁[$output]($style) "
-style = "blue"
+format = "[📁$output ]($style)"
+style = "bg:#DA627D"
 when = "true"
 
 [custom.files]
 description = "Show files count for current directory"
 command = "find ./ -maxdepth 1 -type f | wc -l"
-format = "📝[$output]($style) "
-style = "white"
+format = "[📝$output ]($style)"
+style = "bg:#DA627D"
 when = "true"
+
+[aws]
+symbol = "  "
+
+[buf]
+symbol = " "
+
+[c]
+symbol = " "
+format = "bg:#86BBD8"
+
+[conda]
+symbol = " "
+
+[dart]
+symbol = " "
+
+[docker_context]
+symbol = " "
+
+[elixir]
+symbol = " "
+
+[elm]
+symbol = " "
+
+[fossil_branch]
+symbol = " "
+
+[golang]
+symbol = " "
+
+[guix_shell]
+symbol = " "
+
+[haskell]
+symbol = " "
+
+[haxe]
+symbol = "⌘ "
+
+[hg_branch]
+symbol = " "
+
+[hostname]
+ssh_symbol = " "
+
+[java]
+symbol = " "
+
+[julia]
+symbol = " "
+
+[lua]
+symbol = " "
+
+[memory_usage]
+symbol = "󰍛 "
+
+[meson]
+symbol = "󰔷 "
+
+[nim]
+symbol = "󰆥 "
+
+[nix_shell]
+symbol = " "
+
+[nodejs]
+symbol = " "
+
+[ocaml]
+symbol = " "
+format = "[ $symbol$version\\($switch_indicator$switch_name\\) ]($style)"
+style = "bg:#86BBD8"
+
+[os.symbols]
+Alpaquita = " "
+Alpine = " "
+Amazon = " "
+Android = " "
+Arch = " "
+Artix = " "
+CentOS = " "
+Debian = " "
+DragonFly = " "
+Emscripten = " "
+EndeavourOS = " "
+Fedora = " "
+FreeBSD = " "
+Garuda = "󰛓 "
+Gentoo = " "
+HardenedBSD = "󰞌 "
+Illumos = "󰈸 "
+Linux = " "
+Mabox = " "
+Macos = " "
+Manjaro = " "
+Mariner = " "
+MidnightBSD = " "
+Mint = " "
+NetBSD = " "
+NixOS = " "
+OpenBSD = "󰈺 "
+openSUSE = " "
+OracleLinux = "󰌷 "
+Pop = " "
+Raspbian = " "
+Redhat = " "
+RedHatEnterprise = " "
+Redox = "󰀘 "
+Solus = "󰠳 "
+SUSE = " "
+Ubuntu = " "
+Unknown = " "
+Windows = "󰍲 "
+
+[package]
+symbol = "󰏗 "
+
+[pijul_channel]
+symbol = "🪺 "
+
+[python]
+symbol = " "
+format = '[ ${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
+style = "bg:#86BBD8"
+
+[rlang]
+symbol = "󰟔 "
+
+[ruby]
+symbol = " "
+
+[rust]
+symbol = " "
+
+[scala]
+symbol = " "
+
+[spack]
+symbol = "🅢 "
+
+[time]
+disabled = false
+time_format = "%R" # Hour:Minute Format
+style = "bg:#33658A"
+format = '[ $time ]($style)'
+
+[username]
+#show_always = true
+style_user = "bg:#9A348E"
+style_root = "bg:#9A348E"
+format = '[$user ]($style)'
+#disabled = false
