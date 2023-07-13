@@ -172,3 +172,8 @@ export PYTHONSTARTUP="$HOME/.python_start.py"
 
 # Starship
 eval "$(starship init bash)"
+
+# LSD
+alias ls='lsd'
+alias lt='lsd --tree --depth '
+alias ll='lsd -l'
