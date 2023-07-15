@@ -33,6 +33,7 @@ $git_branch\
 ${custom.giturl}\
 $git_status\
 [](fg:#431717 bg:#524144)\
+${custom.latex}\
 $c$cmake$cobol$daml$dart$deno$dotnet\
 $elixir\
 $elm$erlang$fennel\
@@ -179,6 +180,15 @@ command = "find ./ -maxdepth 1 -type f | wc -l"
 format = "[ $output ]($style)"
 style = "bg:#A51D2D"
 when = "true"
+
+[custom.latex]
+description = "Show LaTeX when TeX files present"
+detect_extensions = [
+    "tex"
+]
+symbol = " "
+format = "[ $symbol]($style)"
+style = "bg:#524144"
 
 [aws]
 symbol = "  "
