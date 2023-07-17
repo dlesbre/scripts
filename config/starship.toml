@@ -12,27 +12,27 @@
 # $c$cmake$cobol$daml$dart$deno$dotnet\
 # $elixir$elm$erlang$fennel$golang$gradle$haskell$haxe$helm$java$julia$kotlin$lua$nim$nodejs$ocaml\
 # $opa$perl$php$pulumi$purescript$python$raku$rlang$red$ruby$rust$scala$solidity$swift$terraform$vlang$vagrant$zig$buf$guix_shell$nix_shell$conda$meson$spack\
-# $memory_usage$aws$gcloud$openstack$azure$env_var$crystal$custom$sudo$cmd_duration$line_break$jobs$battery$time$status$container$os$shell[ ](fg:#33658A)
+# $memory_usage$aws$gcloud$openstack$azure$env_var$crystal$custom$sudo$cmd_duration$line_break$jobs$battery$time$status$container$os$shell[ ](fg:#584141)
 # """
 
 # BG gradient
 # #9A348E
 # #A51D2D -> #B8405B directories
-# #431717 git
+# #723232 git
 # #524144 code
-# #362222 timer
-# #33658A prompt
+# #3f2222 timer
+# #584141 prompt
 
 format = """
 $os\
 $username\
 [ ](bg:#A51D2D fg:#9A348E)\
 $directory${custom.directories}${custom.files}\
-[](fg:#A51D2D bg:#431717)\
+[](fg:#A51D2D bg:#723232)\
 $git_branch\
 ${custom.giturl}\
 $git_status\
-[](fg:#431717 bg:#524144)\
+[](fg:#723232 bg:#524144)\
 ${custom.latex}\
 $c$cmake$cobol$daml$dart$deno$dotnet\
 $elixir\
@@ -49,19 +49,19 @@ $nim\
 $rust\
 $scala\
 $solidity$swift$terraform$vagrant$zig$buf$guix_shell$nix_shell$conda$meson$spack\
-[](fg:#524144 bg:#362222)\
+[](fg:#524144 bg:#3f2222)\
 $docker_context\
 $custom$sudo$cmd_duration\
-[](fg:#362222)\
+[](fg:#3f2222)\
 $line_break\
 $jobs$battery$time\
-[ ](fg:#33658A)\
+[ ](fg:#584141)\
 """
 
 [cmd_duration]
 min_time = 2000
 format = "[  $duration ]($style)"
-style = "bg:#362222 bold yellow"
+style = "bg:#3f2222 bold yellow"
 
 
 [character]
@@ -100,7 +100,7 @@ truncation_symbol = "…/"
 format = "[ $symbol$branch(:$remote_branch) ]($style)"
 # symbol = " "
 symbol = " "
-style = "bg:#431717 bold yellow"
+style = "bg:#723232 bold yellow"
 # truncation_length = 9223372036854775807
 # truncation_symbol = "…"
 # only_attached = false
@@ -110,7 +110,7 @@ style = "bg:#431717 bold yellow"
 
 [git_status]
 format = '([$all_status$ahead_behind ]($style))'
-style = "bg:#431717 green bold"
+style = "bg:#723232 green bold"
 # stashed = '\$'
 # ahead = "⇡"
 # behind = "⇣"
@@ -151,7 +151,7 @@ fi
 echo "$GIT_REMOTE_SYMBOL "
 """
 when = 'git rev-parse --is-inside-work-tree 2> /dev/null'
-style = "bg:#431717"
+style = "bg:#723232"
 format = "[$output ]($style)"
 
 [custom.coq]
@@ -337,7 +337,7 @@ symbol = "🅢 "
 [time]
 disabled = false
 time_format = "%R" # Hour:Minute Format
-style = "bg:#33658A"
+style = "bg:#584141"
 format = '[ $time ]($style)'
 
 [username]
