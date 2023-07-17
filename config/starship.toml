@@ -18,20 +18,22 @@
 # BG gradient
 # #9A348E
 # #A51D2D -> #B8405B directories
-# #C64600 git
-# #613583 code
-# #06969A timer
+# #431717 git
+# #524144 code
+# #362222 timer
+# #33658A prompt
 
 format = """
 $os\
 $username\
 [ ](bg:#A51D2D fg:#9A348E)\
 $directory${custom.directories}${custom.files}\
-[](fg:#A51D2D bg:#C64600)\
+[](fg:#A51D2D bg:#431717)\
 $git_branch\
 ${custom.giturl}\
 $git_status\
-[](fg:#C64600 bg:#613583)\
+[](fg:#431717 bg:#524144)\
+${custom.latex}\
 $c$cmake$cobol$daml$dart$deno$dotnet\
 $elixir\
 $elm$erlang$fennel\
@@ -46,20 +48,20 @@ $opa$perl$php$pulumi$purescript$python$raku$rlang$red$ruby\
 $nim\
 $rust\
 $scala\
-$solidity$swift$terraform$vlang$vagrant$zig$buf$guix_shell$nix_shell$conda$meson$spack\
-[](fg:#613583 bg:#06969A)\
+$solidity$swift$terraform$vagrant$zig$buf$guix_shell$nix_shell$conda$meson$spack\
+[](fg:#524144 bg:#362222)\
 $docker_context\
 $custom$sudo$cmd_duration\
-[](fg:#06969A bg:#33658A)\
+[](fg:#362222)\
 $line_break\
 $jobs$battery$time\
 [ ](fg:#33658A)\
-
 """
+
 [cmd_duration]
 min_time = 2000
 format = "[  $duration ]($style)"
-style = "bg:#06969A"
+style = "bg:#362222 bold yellow"
 
 
 [character]
@@ -98,7 +100,7 @@ truncation_symbol = "…/"
 format = "[ $symbol$branch(:$remote_branch) ]($style)"
 # symbol = " "
 symbol = " "
-style = "bg:#C64600 bold"
+style = "bg:#431717 bold yellow"
 # truncation_length = 9223372036854775807
 # truncation_symbol = "…"
 # only_attached = false
@@ -108,7 +110,7 @@ style = "bg:#C64600 bold"
 
 [git_status]
 format = '([$all_status$ahead_behind ]($style))'
-style = "bg:#C64600 green"
+style = "bg:#431717 green bold"
 # stashed = '\$'
 # ahead = "⇡"
 # behind = "⇣"
@@ -149,7 +151,7 @@ fi
 echo "$GIT_REMOTE_SYMBOL "
 """
 when = 'git rev-parse --is-inside-work-tree 2> /dev/null'
-style = "bg:#C64600"
+style = "bg:#431717"
 format = "[$output ]($style)"
 
 [custom.coq]
@@ -163,7 +165,7 @@ detect_extensions = [
 detect_files = [
     "_CoqProject",
 ]
-style = "bg:#613583"
+style = "bg:#524144"
 
 [custom.directories]
 description = "Show directory count count for current directory"
@@ -179,6 +181,15 @@ format = "[ $output ]($style)"
 style = "bg:#A51D2D"
 when = "true"
 
+[custom.latex]
+description = "Show LaTeX when TeX files present"
+detect_extensions = [
+    "tex"
+]
+symbol = " "
+format = "[ $symbol]($style)"
+style = "bg:#524144"
+
 [aws]
 symbol = "  "
 
@@ -187,7 +198,7 @@ symbol = " "
 
 [c]
 symbol = " "
-format = "bg:#613583"
+format = "bg:#524144"
 
 [conda]
 symbol = " "
@@ -248,11 +259,13 @@ symbol = " "
 
 [nodejs]
 symbol = " "
+style = "bg:#524144"
+format = "[ $symbol($version )]($style)"
 
 [ocaml]
 symbol = " "
 format = "[ $symbol$version\\($switch_indicator$switch_name\\) ]($style)"
-style = "bg:#613583"
+style = "bg:#524144"
 
 [os.symbols]
 Alpaquita = " "
@@ -304,7 +317,7 @@ symbol = "🪺 "
 [python]
 symbol = " "
 format = '[ ${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
-style = "bg:#613583"
+style = "bg:#524144"
 
 [rlang]
 symbol = "󰟔 "

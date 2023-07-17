@@ -1,0 +1,15 @@
+REPO=/home/dorian/Programs/github/scripts
+
+rm ~/.bashrc
+ln -s $REPO/config/bashrc ~/.bashrc
+
+ln -s $REPO/config/starship.toml ~/.config/
+
+mkdir ~/.config/lsd
+ln -s $REPO/config/lsd.yaml ~/.config/lsd/config.yaml
+
+rm ~/.gitconfig
+ln -s $REPO/config/gitconfig ~/.gitconfig
+
+rm ~/.config/VSCodium/User/settings.json
+ln -s $REPO/config/vscode.json ~/.config/VSCodium/User/settings.json
