@@ -5,7 +5,7 @@
 [core]
 	whitespace = trailing-space,tabwidth=2,cr-at-eol,space-before-tab
 	autocrlf = input
-	editor = codium
+	editor = nano
 [checkout]
 	defaultRemote = origin
 [pull]
