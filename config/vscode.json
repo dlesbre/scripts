@@ -32,7 +32,7 @@
     "latex-workshop.latex.autoBuild.run": "never",
     "breadcrumbs.enabled": false,
     "gitlens.rebaseEditor.ordering": "asc",
-    "workbench.colorTheme": "Default Dark+ Experimental",
+    "workbench.colorTheme": "Embers Dark",
     "git.suggestSmartCommit": false,
     "editor.minimap.enabled": false,
     "coq-lsp.show_stats_on_hover": false,
