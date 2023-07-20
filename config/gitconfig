@@ -6,6 +6,7 @@
 	whitespace = trailing-space,tabwidth=2,cr-at-eol,space-before-tab
 	autocrlf = input
 	editor = nano
+	pager = diff-so-fancy | less --tabs=2 -RFX
 [checkout]
 	defaultRemote = origin
 [pull]
@@ -18,3 +19,20 @@
 	gpgsign = true
 [init]
 	defaultBranch = main
+[interactive]
+	diffFilter = diff-so-fancy --patch
+[color]
+	ui = true
+[color "diff-highlight"]
+	oldNormal = red bold
+	oldHighlight = red bold 52
+	newNormal = green bold
+	newHighlight = green bold 22
+[color "diff"]
+	meta = 11
+	frag = blue bold
+	func = 146 bold
+	commit = yellow bold
+	old = red bold
+	new = green bold
+	whitespace = red reverse
