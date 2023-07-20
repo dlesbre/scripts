@@ -198,7 +198,8 @@ symbol = " "
 
 [c]
 symbol = " "
-format = "bg:#524144"
+format = "[ $symbol($version(-$name) )]($style)"
+style = "bg:#524144"
 
 [conda]
 symbol = " "
