@@ -24,9 +24,9 @@
 # #584141 prompt
 
 format = """
-$os\
 $username\
 [ ](bg:#A51D2D fg:#9A348E)\
+$os\
 $directory${custom.directories}${custom.files}\
 [](fg:#A51D2D bg:#723232)\
 $git_branch\
@@ -267,6 +267,10 @@ format = "[ $symbol($version )]($style)"
 symbol = " "
 format = "[ $symbol$version\\($switch_indicator$switch_name\\) ]($style)"
 style = "bg:#524144"
+
+[os]
+disabled = false
+style = "bold white bg:#A51D2D"
 
 [os.symbols]
 Alpaquita = " "
