@@ -48,5 +48,6 @@
     ],
     "texlab.experimental.mathEnvironments": [
         "mathpar"
-    ]
+    ],
+    "terminal.integrated.fontFamily": "FiraCode Nerd Font Mono"
 }
