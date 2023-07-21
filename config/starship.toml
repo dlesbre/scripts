@@ -249,6 +249,14 @@ ssh_symbol = " "
 [java]
 symbol = " "
 
+[jobs]
+threshold = 1
+symbol_threshold = 1
+number_threshold = 2
+format = "[ $symbol$number]($style)"
+symbol = "✦"
+style = "bold yellow bg:#584141"
+
 [julia]
 symbol = " "
 
