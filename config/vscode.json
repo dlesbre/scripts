@@ -4,7 +4,7 @@
     "files.trimFinalNewlines": true,
     "editor.formatOnSave": true,
     "editor.tabSize": 2,
-    "editor.fontFamily": "'Fira Code Retina', 'Droid Sans Mono', 'monospace', monospace",
+    "editor.fontFamily": "'FiraCode Nerd Font', 'Fira Code Retina', 'Droid Sans Mono', 'monospace', monospace",
     "editor.fontLigatures": true,
     "workbench.editor.highlightModifiedTabs": true,
     "editor.renderWhitespace": "boundary",

@@ -11,7 +11,7 @@ sync $SRC/Documents/ "$DST/Documents/"
 sync --size-only $SRC/Pictures/ "$DST/Photos/"
 sync --size-only $SRC/Music/ "$DST/Musique/"
 sync --delete-after $SRC/Dropbox/ "$DST/Dropbox/"
-sync --delete-after $SRC/.local/share/plasma-vault/Admin.enc/ "$DST/Vault/Admin.enc/"
+#sync --delete-after $SRC/.local/share/plasma-vault/Admin.enc/ "$DST/Vault/Admin.enc/"
 #sync $SRC/Templates/ "$DST/Programmes/Templates/"
 #sync $SRC/texmf/tex/latex/custom/ "$DST/Programmes/LaTeX/"
 
