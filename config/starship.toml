@@ -33,7 +33,7 @@ $git_branch\
 ${custom.giturl}\
 $git_status\
 [](fg:#723232 bg:#524144)\
-${custom.latex}\
+${custom.obsidian}${custom.latex}\
 $c$cmake$cobol$daml$dart$deno$dotnet\
 $elixir\
 $elm$erlang$fennel\
@@ -164,6 +164,15 @@ detect_extensions = [
 ]
 detect_files = [
     "_CoqProject",
+]
+style = "bg:#524144"
+
+[custom.obsidian]
+description = "Shown when inside an obsidian vault"
+symbol = "󱝿"
+format = "[ $symbol Obsidian ]($style)"
+detect_folders = [
+    ".obsidian",
 ]
 style = "bg:#524144"
 
