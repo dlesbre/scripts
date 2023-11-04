@@ -170,6 +170,8 @@ alias venv='source venv/bin/activate'
 
 export PYTHONSTARTUP="$HOME/.python_start.py"
 
+alias bat='batcat'
+
 # Starship
 eval "$(starship init bash)"
 
