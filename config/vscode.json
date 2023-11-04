@@ -9,12 +9,6 @@
     "workbench.editor.highlightModifiedTabs": true,
     "editor.renderWhitespace": "boundary",
     "python.languageServer": "Pylance",
-    "python.linting.flake8Enabled": true,
-    "python.linting.mypyEnabled": true,
-    "python.formatting.provider": "black",
-    "python.linting.flake8Args": [
-        "--max-line-length=120"
-    ],
     "python.diagnostics.sourceMapsEnabled": true,
     "ltex.language": "fr",
     "[python]": {
