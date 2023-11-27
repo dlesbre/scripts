@@ -1,20 +1,12 @@
 {
   "default": [
     {
-      "expression": "*.dropbox.com",
-      "listType": "WHITE",
-      "storeId": "default",
-      "cleanSiteData": [],
-      "cookieNames": [],
-      "id": "nrsNq-Q8Y"
-    },
-    {
       "expression": "*.ens.fr",
       "listType": "WHITE",
       "storeId": "default",
       "cleanSiteData": [],
       "cookieNames": [],
-      "id": "wnnTtjDt6"
+      "id": "Eb7ZqAhJD"
     },
     {
       "expression": "*.ens.psl.eu",
@@ -22,7 +14,15 @@
       "storeId": "default",
       "cleanSiteData": [],
       "cookieNames": [],
-      "id": "2QzllhBXG"
+      "id": "ZatPOScwgR"
+    },
+    {
+      "expression": "*.frama-c.com",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cleanSiteData": [],
+      "cookieNames": [],
+      "id": "zwmmRzu5Y"
     },
     {
       "expression": "*.github.com",
@@ -30,7 +30,7 @@
       "storeId": "default",
       "cleanSiteData": [],
       "cookieNames": [],
-      "id": "zN3LgjRK0"
+      "id": "oqaefhGlP9"
     },
     {
       "expression": "*.google.com",
@@ -38,7 +38,7 @@
       "storeId": "default",
       "cleanSiteData": [],
       "cookieNames": [],
-      "id": "KjuMsOWzK"
+      "id": "C04ZElE25e"
     },
     {
       "expression": "*.mattermost.cs.au.dk",
@@ -46,7 +46,7 @@
       "storeId": "default",
       "cleanSiteData": [],
       "cookieNames": [],
-      "id": "cdFuCxciu"
+      "id": "pHCDcaQqQR"
     },
     {
       "expression": "*.reddit.com",
@@ -54,7 +54,7 @@
       "storeId": "default",
       "cleanSiteData": [],
       "cookieNames": [],
-      "id": "UyhyzAmSJ"
+      "id": "Su2I3OLDjq"
     },
     {
       "expression": "*.steampowered.com",
@@ -62,7 +62,7 @@
       "storeId": "default",
       "cleanSiteData": [],
       "cookieNames": [],
-      "id": "Gtndr2Ml8"
+      "id": "CcF11VG4th"
     },
     {
       "expression": "*.web.whatsapp.com",
@@ -70,7 +70,7 @@
       "storeId": "default",
       "cleanSiteData": [],
       "cookieNames": [],
-      "id": "ojepdOG4j"
+      "id": "Uz1bHPTB2A"
     },
     {
       "expression": "*.youtube.com",
@@ -78,7 +78,15 @@
       "storeId": "default",
       "cleanSiteData": [],
       "cookieNames": [],
-      "id": "fyONnCYRX"
+      "id": "vhf3BSHWjx"
+    },
+    {
+      "expression": "*dropbox.com",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cleanSiteData": [],
+      "cookieNames": [],
+      "id": "RKad0g7Bv"
     },
     {
       "expression": "*gitlab.mpi-sws.org",
@@ -86,7 +94,7 @@
       "storeId": "default",
       "cleanSiteData": [],
       "cookieNames": [],
-      "id": "nPMQw5qCR"
+      "id": "BI8lCaDDNC"
     }
   ]
 }

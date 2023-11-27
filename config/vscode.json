@@ -56,5 +56,9 @@
     "texlab.experimental.mathEnvironments": [
         "mathpar"
     ],
-    "terminal.integrated.fontFamily": "FiraCode Nerd Font Mono"
+    "terminal.integrated.fontFamily": "FiraCode Nerd Font Mono",
+    "vscoq.trace.server": "verbose",
+    "gitlab.aiAssistedCodeSuggestions.enabled": false,
+    "gitlens.ai.experimental.generateCommitMessage.enabled": false,
+    "gitlens.plusFeatures.enabled": false
 }
