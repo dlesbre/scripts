@@ -57,6 +57,7 @@ $line_break\
 $jobs$battery$time\
 [ ](fg:#584141)\
 """
+continuation_prompt = "[  ...  ](bg:#584141)[ ](fg:#584141) "
 
 [cmd_duration]
 min_time = 2000
