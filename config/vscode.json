@@ -24,6 +24,19 @@
     "latex-workshop.bibtex-format.tab": "tab",
     "latex-workshop.bibtex-format.trailingComma": true,
     "latex-workshop.latex.autoBuild.run": "never",
+    "latex-workshop.view.pdf.external.viewer.command": "/home/dorian/Programs/Sioyek-x86_64.AppImage",
+    "latex-workshop.view.pdf.external.synctex.command": "/home/dorian/Programs/Sioyek-x86_64.AppImage",
+    "latex-workshop.view.pdf.external.synctex.args": [
+        "--inverse-search",
+        "codium -r -g \"%1:%2\"",
+        "--reuse-window",
+        "--forward-search-file",
+        "%TEX%",
+        "--forward-search-line",
+        "%LINE%",
+        "%PDF%"
+    ],
+    "latex-workshop.view.pdf.viewer": "external",
     "breadcrumbs.enabled": false,
     "gitlens.rebaseEditor.ordering": "asc",
     "workbench.colorTheme": "Embers Dark",
@@ -44,5 +57,8 @@
         "mathpar"
     ],
     "terminal.integrated.fontFamily": "FiraCode Nerd Font Mono",
-    "redhat.telemetry.enabled": false
+    "redhat.telemetry.enabled": false,
+    "gitlab.aiAssistedCodeSuggestions.enabled": false,
+    "gitlens.ai.experimental.generateCommitMessage.enabled": false,
+    "gitlens.plusFeatures.enabled": false
 }
