@@ -43,5 +43,6 @@
     "texlab.experimental.mathEnvironments": [
         "mathpar"
     ],
-    "terminal.integrated.fontFamily": "FiraCode Nerd Font Mono"
+    "terminal.integrated.fontFamily": "FiraCode Nerd Font Mono",
+    "redhat.telemetry.enabled": false
 }
