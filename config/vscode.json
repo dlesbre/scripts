@@ -57,7 +57,7 @@
         "mathpar"
     ],
     "terminal.integrated.fontFamily": "FiraCode Nerd Font Mono",
-    "vscoq.trace.server": "verbose",
+    "redhat.telemetry.enabled": false,
     "gitlab.aiAssistedCodeSuggestions.enabled": false,
     "gitlens.ai.experimental.generateCommitMessage.enabled": false,
     "gitlens.plusFeatures.enabled": false

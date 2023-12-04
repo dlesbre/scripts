@@ -350,6 +350,8 @@ symbol = " "
 
 [rust]
 symbol = " "
+format = "[ $symbol($version )]($style)"
+style = "bg:#524144"
 
 [scala]
 symbol = " "
