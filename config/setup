@@ -1,7 +1,9 @@
-REPO=/home/dorian/Programs/github/scripts
+REPO=/home/dorian/Documents/Github/scripts
 
 rm ~/.bashrc
 ln -s $REPO/config/bashrc ~/.bashrc
+ln -s $REPO/config/inputrc ~/.inputrc
+ln -s $REPO/config/python_start.py ~/.python_start.py
 
 ln -s $REPO/config/starship.toml ~/.config/
 
