@@ -37,7 +37,6 @@
         "%PDF%"
     ],
     "latex-workshop.view.pdf.viewer": "external",
-    "breadcrumbs.enabled": false,
     "gitlens.rebaseEditor.ordering": "asc",
     "workbench.colorTheme": "Embers Dark",
     "git.suggestSmartCommit": false,
@@ -60,5 +59,20 @@
     "redhat.telemetry.enabled": false,
     "gitlab.aiAssistedCodeSuggestions.enabled": false,
     "gitlens.ai.experimental.generateCommitMessage.enabled": false,
-    "gitlens.plusFeatures.enabled": false
+    "gitlens.plusFeatures.enabled": false,
+    "clangd.path": "/home/dorian/.config/VSCodium/User/globalStorage/llvm-vs-code-extensions.vscode-clangd/install/17.0.3/clangd_17.0.3/bin/clangd",
+    "outline.collapseItems": "alwaysCollapse",
+    "outline.showArrays": false,
+    "outline.showBooleans": false,
+    "outline.showConstants": false,
+    "outline.showConstructors": false,
+    "outline.showEnumMembers": false,
+    "outline.showFields": false,
+    "outline.showNull": false,
+    "outline.showNumbers": false,
+    "outline.showStrings": false,
+    "outline.showTypeParameters": false,
+    "breadcrumbs.symbolSortOrder": "type",
+    "outline.showKeys": false,
+    "outline.showVariables": false
 }
