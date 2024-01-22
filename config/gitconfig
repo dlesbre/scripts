@@ -15,6 +15,7 @@
 	graph = log --all --graph --decorate
 	gore = log --all --graph --decorate --pretty=oneline
 	oneline = log --pretty=oneline
+	forget = reset HEAD~
 [commit]
 	gpgsign = true
 [init]
