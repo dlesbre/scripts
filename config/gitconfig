@@ -16,6 +16,7 @@
 	gore = log --all --graph --decorate --pretty=oneline
 	oneline = log --pretty=oneline
 	forget = reset HEAD~
+	sync = !git-sync
 [commit]
 	gpgsign = true
 [init]

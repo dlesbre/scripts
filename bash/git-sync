@@ -1,0 +1,34 @@
+#!/usr/bin/bash
+# Bash script to rebase current branch on the
+# main remote branch (main/master/whatever)
+main=$(git rev-parse --abbrev-ref origin/HEAD | cut -c8-)
+current=$(git rev-parse --abbrev-ref HEAD)
+
+color_on="\033[93;1m"
+color_off="\033[0m"
+
+function cecho () {
+  echo -e "$color_on$1$color_off"
+}
+
+stashed_commit="$(git stash create)"
+if [ -n "${stashed_commit}" ]
+then
+  cecho "Stashed changes to ${stashed_commit}"
+fi
+
+git reset --hard
+
+git checkout $main
+cecho "Pulling on $main"
+git pull
+git checkout $current
+cecho "Rebasing $current on $main"
+git rebase $main
+
+# If there were local changes, then restore them
+if [ -n "${stashed_commit}" ]
+then
+  cecho "Restoring changes from stash"
+  git stash apply "${stashed_commit}"
+fi
