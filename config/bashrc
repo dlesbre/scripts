@@ -163,7 +163,6 @@ eval $(opam env)
 # alias stately='java -jar /home/dorian/links/stage/stately/Stately.jar'
 
 # custom alias
-alias vpn='sudo openvpn ~/eleves.ovpn'
 alias python='python3'
 alias pip='pip3'
 alias venv='source venv/bin/activate'
