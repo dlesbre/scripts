@@ -182,3 +182,6 @@ eval "$(starship init bash)"
 alias ls='lsd'
 alias lt='lsd --tree --depth '
 alias ll='lsd -l'
+
+# ssh-agent
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
