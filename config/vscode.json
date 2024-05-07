@@ -8,14 +8,13 @@
     "editor.fontLigatures": true,
     "workbench.editor.highlightModifiedTabs": true,
     "editor.renderWhitespace": "boundary",
-    "python.languageServer": "Pylance",
+    "python.languageServer": "Jedi",
     "python.diagnostics.sourceMapsEnabled": true,
     "ltex.language": "fr",
     "[python]": {
         "editor.tabSize": 4
     },
     "ocaml.trace.server": "verbose",
-    "diffEditor.renderSideBySide": false,
     "search.useGlobalIgnoreFiles": true,
     "search.useParentIgnoreFiles": true,
     "explorer.excludeGitIgnore": true,
@@ -42,7 +41,6 @@
     "git.suggestSmartCommit": false,
     "editor.minimap.enabled": false,
     "coq-lsp.show_stats_on_hover": false,
-    "diffEditor.ignoreTrimWhitespace": false,
     "ltex.latex.commands": {
         "\\newtarget{}": "ignore",
         "\\newdef{}": "ignore"
@@ -74,5 +72,11 @@
     "outline.showTypeParameters": false,
     "breadcrumbs.symbolSortOrder": "type",
     "outline.showKeys": false,
-    "outline.showVariables": false
+    "outline.showVariables": false,
+    "texlab.chktex.onOpenAndSave": false,
+    "indentRainbow.excludedLanguages": [
+        "ocaml",
+        "plaintext"
+    ],
+    "diffEditor.useInlineViewWhenSpaceIsLimited": false,
 }

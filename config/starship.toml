@@ -347,6 +347,8 @@ symbol = "󰟔 "
 
 [ruby]
 symbol = " "
+format = "[ $symbol($version )]($style)"
+style = "bg:#524144"
 
 [rust]
 symbol = " "
