@@ -54,7 +54,7 @@ $docker_context\
 $custom$sudo$cmd_duration\
 [](fg:#3f2222)\
 $line_break\
-$jobs$battery$time\
+$status$jobs$battery$time\
 [ ](fg:#584141)\
 """
 continuation_prompt = "[  ...  ](bg:#584141)[ ](fg:#584141) "
@@ -64,6 +64,9 @@ min_time = 2000
 format = "[  $duration ]($style)"
 style = "bg:#3f2222 bold yellow"
 
+[status]
+disabled=false
+format='[$symbol$status](fg:#ffffff bold bg:blue)[ ](fg:blue bg:#584141)'
 
 [character]
 # format = "$symbol "

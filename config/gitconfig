@@ -1,7 +1,7 @@
 [user]
 	name = Dorian Lesbre
 	email = dorian.lesbre@gmail.com
-	signingkey = FA8B85AFB5CBACFD1FCF450424450419637FA933
+	signingkey = BDD4636D4063A7499823997D0E3BF5D6EAC33D56
 [core]
 	whitespace = trailing-space,tabwidth=2,cr-at-eol,space-before-tab
 	autocrlf = input
