@@ -17,6 +17,7 @@
 	oneline = log --pretty=oneline
 	forget = reset HEAD~
 	sync = !git-sync
+	pulldiff = diff HEAD@{1}
 [commit]
 	gpgsign = true
 [init]
