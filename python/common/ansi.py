@@ -2,12 +2,11 @@
 ANSI escape sequence for colors and styles
 """
 
-from typing import Any
+from sys import stdout
 
 
 class ANSICodes:
-
-    use_ansi: bool = True
+    use_ansi: bool = stdout.isatty()
 
     Codes = {
         # Foreground Colors
@@ -74,14 +73,33 @@ class ANSICodes:
     # Empty dict used when disabled
     EmptyCodes = {attr: "" for attr in Codes}
 
+    class Default(dict):
+        def __missing__(self, key):
+            if key in ANSICodes.Codes.keys():
+                return "{" + key + "}"
+            raise KeyError(key)
+
     @classmethod
-    def ansi_format(cls, string: str, *args: Any, **kwargs: Any) -> str:
-        """Return the string formatted with args and kwargs,
+    def format_keep_ansi(cls, string: str, *args: object, **kwargs: object) -> str:
+        """Return the string formatted with kwargs,
+        leaving the color formatters unchanged"""
+        return string.format_map(cls.Default(**kwargs))
+
+    @classmethod
+    def ansi_format(cls, string: str, *args: object, **kwargs: object) -> str:
+        """Return the string formatted with kwargs,
         adding the color formatters"""
         codes = cls.Codes
         if not cls.use_ansi:
             codes = cls.EmptyCodes
         return string.format(*args, **kwargs, **codes)
 
+    @classmethod
+    def ansiless_len(cls, string: str) -> int:
+        """Length of a string without counting ANSI sequences"""
+        codes = cls.EmptyCodes
+        return len(string.format(**codes))
+
 
 ansi_format = ANSICodes.ansi_format
+ansiless_len = ANSICodes.ansiless_len

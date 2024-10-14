@@ -15,8 +15,8 @@ max_i32 = 2**31 - 1
 min_i32 = -(2**31)
 
 max_u16 = 2**16 - 1
-max_i32 = 2**15 - 1
-min_i32 = -(2**15)
+max_i16 = 2**15 - 1
+min_i16 = -(2**15)
 
 
 def display_as_hex(item):
@@ -47,3 +47,16 @@ def print_bin():
 
 def print_int():
     sys.displayhook = sys.__displayhook__
+
+
+def print_bounds(bits: int) -> None:
+    """Shows min/max signed/unsigned values of N bits"""
+    print(f"""Bounds for integers on {bits} bits ({bits/8} bytes)
+    unsigned max: 2^{bits} - 1 is  {hex(2**bits - 1)} or  {2**bits-1}
+    signed max:   2^{bits-1} - 1 is  {hex(2**(bits-1) - 1)} or  {2**(bits-1)-1}
+    signed min:  -2^{bits-1}     is -{hex(2**(bits-1))} or -{2**(bits-1)}
+    """)
+
+
+def parse_number(nb: str) -> int:
+    return int(nb, base=0)
