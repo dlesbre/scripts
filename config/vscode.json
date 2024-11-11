@@ -80,4 +80,6 @@
     "diffEditor.useInlineViewWhenSpaceIsLimited": false,
     "diffEditor.renderSideBySide": false,
     "gitlab.duoCodeSuggestions.enabled": false,
+    "vscoq.path": "/home/dorian/.opam/4.14/bin/vscoqtop",
+    "vscoq.goals.display": "Tabs",
 }
