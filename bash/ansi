@@ -39,8 +39,8 @@ echo "     Bold      Faint     Italics   Underline Blink     Inverse  Barred    
 echo -n "On:  "
 for i in {0..9}; do
 	echo -en "\033[${style_on[i]}m"'\\033['"${style_on[i]}"'m'"\033[${style_off[i]}m  "
-	if [ $i -lt 5 ]; then	echo -n " "; fi
-	if [ $i -eq 6 ]; then echo -n " "; fi
+	if [ "$i" -lt 5 ]; then	echo -n " "; fi
+	if [ "$i" -eq 6 ]; then echo -n " "; fi
 done
 echo ""
 echo -n "Off: "

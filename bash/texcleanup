@@ -25,7 +25,7 @@ SHOW_HELP=0
 SHOW_VERSION=0
 CHANGE_PATH=0
 
-for arg in $@
+for arg in "$@"
 do
 	case $arg in
 		-h | -help | --help)
@@ -74,7 +74,7 @@ fi
 
 for DIR_PATH in $ALL_PATHS
 do
-	if test -d $DIR_PATH/build; then
+	if test -d "$DIR_PATH"/build; then
 		for file in "$DIR_PATH"/build/*.pdf ;
 		do
 			if test -f "$file"; then
@@ -83,7 +83,7 @@ do
 			fi
 		done
 		echo -e "$NAME Deleting $DIR_PATH/build."
-		rm -rf $DIR_PATH/build
+		rm -rf "$DIR_PATH"/build
 	else
 		echo -e "$NAME No $DIR_PATH/build directory"
 	fi
