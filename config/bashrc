@@ -133,7 +133,7 @@ fi
 #
 
 # add links folder to cdpath
-export CDPATH="~/links:$CDPATH"
+export CDPATH="$HOME/links:$CDPATH"
 export INPUTRC=~/.inputrc
 
 #LS_Colors
@@ -152,7 +152,7 @@ export PATH=~/.local/bin:$PATH
 export PATH="$HOME/.cargo/bin:$PATH"
 
 # ocaml
-eval $(opam env)
+eval "$(opam env)"
 
 # Lustre
 # export LUSTRE_INSTALL=/home/dorian/links/20-21/PPR/TP3/lustre-v4-III-e-linux64
@@ -191,3 +191,11 @@ alias ll='lsd -l'
 
 # ssh-agent
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
+
+# @begin(37384508)@ - Do not edit these lines - added automatically!
+# You should customize CIAOPATH before this chunk if you place bundles in
+# places other than ~/.ciao
+if [ -x /home/dorian/.ciaoroot/v1.24.0-m1/build/bin/ciao-env ] ; then
+  eval "$(/home/dorian/.ciaoroot/v1.24.0-m1/build/bin/ciao-env --sh)"
+fi
+# @end(37384508)@ - End of automatically added lines.
