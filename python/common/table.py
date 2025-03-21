@@ -1,139 +1,128 @@
-from typing import TypeVar, Union
+from typing import Literal, TypeVar, Union
+
+from .display import Display
 
 C = TypeVar("C")
 
 Number = Union[int, float]
 STR_OR_NUM = Union[str, Number]
 
+SEPARATOR: Literal["---"] = "---"
+HEADERS: Literal["headers"] = "headers"
+TableRow = list[str | None] | Literal["---", "headers"]
+TableValue = list[TableRow]
+
+Alignement = Literal["l", "c", "r"]
+
+
+def cast_alignement(x: str) -> Alignement:
+    x = x.lower()
+    if x == "l":
+        return "l"
+    elif x == "c":
+        return "c"
+    elif x == "r":
+        return "r"
+    raise ValueError(x + " is not a valid alignment")
+
 
 class Table:
-    headers: list[str]
-    values: list[C]
-    keys: list[C]
+    """Pretty print tables"""
 
-    def __init__(self, values, keys: list[str | int] | int | None = None):
-        if isinstance(values, list):
-            self.values = values
+    headers: list[str] | None
+    values: list[TableRow]
+    width: int
+    column_sep: str
+    column_align: list[Alignement]
+    header_style: str
+
+    def __init__(
+        self,
+        values: list[TableRow],
+        headers: list[str] | None = None,
+        column_align: list[Alignement] | str | None = None,
+        column_sep: str = " ",
+        header_style: str = "{ST:bold}",
+    ) -> None:
+        self.headers = headers
+        self.values = values
+        self.width = len(self.values[0])
+        self.column_sep = column_sep
+        if headers is not None and len(headers) != self.width:
+            raise ValueError(
+                "Table has width {}, but only received {} headers".format(
+                    self.width, len(headers)
+                )
+            )
+        if column_align is None:
+            self.column_align = ["l"] * self.width
         else:
-            self.values = list(values)
-        if keys is None:
-            if not isinstance(self.values[0], list):
-                try:
-                    self.values = [list(x) for x in self.values]
-                except TypeError:
-                    raise ValueError("Table keys argument must be specified unless")
-            self.keys = list(range(len(self.values[0])))
-        elif isinstance(keys, int):
-            self.keys = list(range(len(self.values[0])))
-        else:
-            self.keys = keys
+            self.column_align = [cast_alignement(x) for x in column_align]
+        if len(self.column_align) != self.width:
+            raise ValueError(
+                "Table has width {}, but only received {} column aligns".format(
+                    self.width, len(self.column_align)
+                )
+            )
+        self.header_style = header_style
 
-    def get_cell(self, key: str | int, value: C):
-        try:
-            if isinstance(key, str) and hasattr(value, key):
-                return getattr(value, key)
-            return value[key]  # type: ignore
-        except (KeyError, AttributeError, IndexError):
-            return None
+    def compute_widths(self) -> list[int]:
+        """Return a list of widths for each column"""
+        widths = [0] * self.width
+        if self.headers is not None:
+            for i, hd in enumerate(self.headers):
+                widths[i] = Display.len(hd)
+        for row in self.values:
+            if row == SEPARATOR or row == HEADERS:
+                continue
+            for i, x in enumerate(row):
+                if x is not None:
+                    widths[i] = max(widths[i], Display.len(x))
+        return widths
 
+    def justify(self, cell: str | None, align: Alignement, width: int) -> str:
+        """return cell padded to the specified width"""
+        if cell is None:
+            cell = ""
+        difference = len(cell) - Display.len(cell)
+        if align == "l":
+            return cell.ljust(width + difference)
+        elif align == "c":
+            return cell.center(width + difference)
+        elif align == "r":
+            return cell.rjust(width + difference)
 
-MILLION = "\033[31mM\033[37m"
-THOUSAND = "\033[33mk\033[37m"
+    def render(self) -> str:
+        """Render the table as a string"""
+        render = ""
+        widths = self.compute_widths()
 
-
-class Table2:
-    """Used to pretty-print a table"""
-
-    table: list[list[STR_OR_NUM]]
-    widths: list[int]
-
-    column_delimiter: str = " "  # "|"
-    line_delimiter: str = "-"
-    cross_delimiter: str = "+"
-
-    odd_row_format: str = ""
-
-    footer = 2
-
-    def column_width(self, column: int) -> int:
-        """Compute the width of a column"""
-        width = 0
-        for row in self.table:
-            elt = row[column]
-            if isinstance(elt, float):
-                elt = round(elt, 2)
-                if len(str(elt)) >= 4:
-                    elt = round(elt)
-            if (isinstance(elt, int) or isinstance(elt, float)) and elt > 1_000:
-                if elt > 1_000_000:
-                    elt = str(round(elt / 1_000_000)) + "M"
+        if self.headers is not None:
+            headers = self.header_style
+            for i, header in enumerate(self.headers):
+                headers += self.justify(header, "l", widths[i])
+                if i + 1 < self.width:
+                    headers += self.column_sep
                 else:
-                    elt = str(round(elt / 1_000)) + "k"
-            width = max(width, len(str(elt)))
-        return width
-
-    def pad_column(self, column: int, pad_numbers_right: bool = True) -> list[str]:
-        """Create a padded version of the column"""
-        width = self.widths[column]
-        padded = list()
-        for row in self.table:
-            elt = row[column]
-            if isinstance(elt, float):
-                elt = round(elt, 2)
-                if len(str(elt)) >= 4:
-                    elt = round(elt)
-            if isinstance(elt, int) or isinstance(elt, float):
-                extra_width = 0  # extra width to account for ANSI codes
-                if elt > 1_000_000:
-                    elt = str(round(elt / 1_000_000)) + MILLION
-                    extra_width = len(MILLION) - 1
-                elif elt > 1_000:
-                    elt = str(round(elt / 1_000)) + THOUSAND
-                    extra_width = len(THOUSAND) - 1
-                if pad_numbers_right:
-                    padded.append(str(elt).rjust(width + extra_width))
+                    headers += "\n"
+            headers += "{Reset}"
+        render += headers
+        sum_widths = sum(widths) + len(self.column_sep) * (self.width - 1)
+        separator = "-" * sum_widths + "\n"
+        for row in self.values:
+            if row == SEPARATOR:
+                render += separator
+                continue
+            if row == HEADERS:
+                if self.headers is None:
+                    raise ValueError("headers in table without headers")
+                render += headers
+                continue
+            for i, cell in enumerate(row):
+                render += self.justify(cell, self.column_align[i], widths[i])
+                if i + 1 < self.width:
+                    render += self.column_sep
                 else:
-                    padded.append(str(elt).ljust(width + extra_width))
-            elif pad_numbers_right and elt == "--":
-                padded.append(str(elt).rjust(width))
-            else:
-                padded.append(str(elt).ljust(width))
-        return padded
+                    render += "\n"
 
-    def __init__(self, values: list[list[STR_OR_NUM]]) -> None:
-        self.table = values
-        self.widths = [self.column_width(i) for i in range(len(values[0]))]
-
-    def pp_ascii_line_sep(self, use_ansi: bool) -> None:
-        sep = self.cross_delimiter.join(
-            self.line_delimiter * width for width in self.widths
-        )
-        if use_ansi:
-            sep = "\033[1;32m" + sep + "\033[0m"
-        print(sep)
-
-    def pp_ascii(self, use_ansi: bool) -> None:
-        """Render as ascii and print to stdout"""
-        padded = [self.pad_column(i) for i in range(len(self.widths))]
-        # self.pp_ascii_line_sep(use_ansi)
-        bg_colors = ("\033[48;5;17m", "\033[48;5;16m")  # blue, black
-        if use_ansi:
-            # Bold first line
-            print("\033[1;32;4;48;5;16m", end="")
-        size = len(padded[0])
-        for row in range(size):
-            if row == size - self.footer:
-                bg_colors = (bg_colors[1], bg_colors[0])
-                if use_ansi:
-                    print(bg_colors[row % 2], end="")
-                self.pp_ascii_line_sep(use_ansi)
-            text = self.column_delimiter.join(col[row] for col in padded)
-            if use_ansi:
-                if row == 0:
-                    text = "\033[1;32;4;48;5;16m" + text + "\033[0m"
-                else:
-                    text = "\033[37m" + bg_colors[row % 2] + text + "\033[0m"
-            print(text)
-            if row == 0 and not use_ansi:
-                self.pp_ascii_line_sep(use_ansi)
-        # self.pp_ascii_line_sep(use_ansi)
+        return render

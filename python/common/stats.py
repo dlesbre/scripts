@@ -1,5 +1,7 @@
 from math import sqrt
-from typing import Generic, TypeVar
+from typing import Callable, Generic, TypeVar
+
+from .display import Display
 
 N = TypeVar("N", int, float)
 
@@ -9,31 +11,38 @@ class Stats(Generic[N]):
 
     size: int
     sum: N
+    sum_squares: N
+    non_zero: int
+
+    # These are only defined if size > 0
     max: N
     min: N
-    sum_squares: N
     average: float
     median: N | float
-    q1: N | float
-    q3: N | float
     variance: float
     std_deviation: float
     deviation_percent: int  # standard deviation as a percent of the mean
+
+    # These are only defined if size >= 3
+    q1: N | float
+    q3: N | float
 
     def __init__(self, items: list[N]) -> None:
         self.size = len(items)
         self.sum = sum(items)
         self.sum_squares = sum(x * x for x in items)
-        if self.size != 0:
+        self.non_zero = len(list(x for x in items if x != 0))
+        if self.size > 0:
             self.average = self.sum / self.size
             self.variance = (self.sum_squares / self.size) - (
                 self.average * self.average
             )
             self.std_deviation = sqrt(self.variance)
-            self.deviation_percent = int(self.std_deviation * 100.0 / self.average)
+            if self.average != 0:
+                self.deviation_percent = int(self.std_deviation * 100.0 / self.average)
             sorted_items = sorted(items)
-            self.min = items[0]
-            self.max = items[-1]
+            self.min = sorted_items[0]
+            self.max = sorted_items[-1]
             self.median, median_indices = self.find_median(sorted_items)
             if self.size >= 3:
                 self.q1, _ = self.find_median(sorted_items[: median_indices[0]])
@@ -52,6 +61,43 @@ class Stats(Generic[N]):
             return (sorted_list[indices[0]] + sorted_list[indices[1]]) / 2, indices
         indices.append(half)
         return sorted_list[indices[0]], indices
+
+    def pretty_average(
+        self,
+        formatter: Callable[[float], str] = str,
+        color_percent: bool = True,
+        plus_minus_symbol: str | None = None,
+    ) -> str | None:
+        if self.size <= 0:
+            return None
+        color = ""
+        if color_percent:
+            if self.deviation_percent < 1:
+                color = Display.grayscale(5)
+            elif self.deviation_percent < 5:
+                color = Display.grayscale(6)
+            elif self.deviation_percent < 10:
+                color = Display.grayscale(7)
+            elif self.deviation_percent < 15:
+                color = Display.grayscale(9)
+            elif self.deviation_percent < 20:
+                color = Display.grayscale(11)
+            elif self.deviation_percent < 25:
+                color = Display.grayscale(13)
+            elif self.deviation_percent < 50:
+                color = Display.grayscale(15)
+            elif self.deviation_percent < 75:
+                color = ""
+            elif self.deviation_percent < 100:
+                color = "{FgYellow}"
+            else:
+                color = "{FgRed}"
+        return "{}{}{}{}%{{Reset}}".format(
+            formatter(self.average),
+            color,
+            "{UPlusMinus}" if plus_minus_symbol is None else plus_minus_symbol,
+            self.deviation_percent,
+        )
 
 
 class DiffStats(Generic[N]):
