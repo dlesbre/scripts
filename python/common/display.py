@@ -331,6 +331,8 @@ class UnicodeFormatter:
         "Leftrightarrow": ("⇔", "<=>", "\\Leftrightarrow"),
         "galois": ("⇄", "galois", "\\rightleftarrows"),
         "mapsto": ("↦", "|->", "\\mapsto"),
+        "checkmark": ("✓", "check", "\\checkmark"),
+        "crossmark": ("✗", "X", "\\ding{55}"),  # Requires pifont package
     }
     # Some aliases
     Unicode["+/-"] = Unicode["plusminus"]
