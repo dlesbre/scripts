@@ -7,8 +7,6 @@ C = TypeVar("C")
 Number = Union[int, float]
 STR_OR_NUM = Union[str, Number]
 
-SEPARATOR: Literal["---"] = "---"
-HEADERS: Literal["headers"] = "headers"
 TableRow = list[str | None] | Literal["---", "headers"]
 TableValue = list[TableRow]
 
@@ -28,6 +26,9 @@ def cast_alignement(x: str) -> Alignement:
 
 class Table:
     """Pretty print tables"""
+
+    SEPARATOR: Literal["---"] = "---"
+    HEADERS: Literal["headers"] = "headers"
 
     headers: list[str] | None
     values: list[TableRow]
@@ -73,7 +74,7 @@ class Table:
             for i, hd in enumerate(self.headers):
                 widths[i] = Display.len(hd)
         for row in self.values:
-            if row == SEPARATOR or row == HEADERS:
+            if row == self.SEPARATOR or row == self.HEADERS:
                 continue
             for i, x in enumerate(row):
                 if x is not None:
@@ -110,10 +111,10 @@ class Table:
         sum_widths = sum(widths) + len(self.column_sep) * (self.width - 1)
         separator = "-" * sum_widths + "\n"
         for row in self.values:
-            if row == SEPARATOR:
+            if row == self.SEPARATOR:
                 render += separator
                 continue
-            if row == HEADERS:
+            if row == self.HEADERS:
                 if self.headers is None:
                     raise ValueError("headers in table without headers")
                 render += headers
