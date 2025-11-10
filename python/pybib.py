@@ -37,6 +37,7 @@ except ImportError:
         print("Warning: pyPdf not found.")
         return None
 
+
 parser = ArgumentParser(
     "pybib",
     usage="pybib PDF_FILE",
@@ -51,9 +52,7 @@ title = read_pdf_title(file)
 if title is None or title.strip() == "":
     title = input("Could not read title, please specify one manually: ")
 else:
-    other = input(
-        f"Read title as:\n  '{title}'\nIf incorrect, please specify correct title, else leave blank: "
-    )
+    other = input(f"Read title as:\n  '{title}'\nIf incorrect, please specify correct title, else leave blank: ")
     if other:
         title = other
 
@@ -141,11 +140,11 @@ md_content += f"""
 > abstract goes here
 
 ```bibtex
-@article{{{key},"""
+@article{{{key},\n"""
 for key in result:
     if key not in ("ID", "ENTRYTYPE"):
         md_content += f"  {key} = {{{result[key]}}},\n"
-md_content += "```\n"
+md_content += "}\n```\n"
 
 md = BIBLIO_PATH / (ntitle.capitalize() + ".md")
 i = 0
@@ -155,3 +154,4 @@ while md.exists():
     md = BIBLIO_PATH / (ntitle.capitalize() + "_" + str(i) + ".md")
 with open(md, "w") as md_file:
     md_file.write(md_content)
+print(f"Initialized obsidian note at {md_file}")
