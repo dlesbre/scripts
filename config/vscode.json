@@ -80,10 +80,25 @@
     "diffEditor.useInlineViewWhenSpaceIsLimited": false,
     "diffEditor.renderSideBySide": false,
     "gitlab.duoCodeSuggestions.enabled": false,
-    "vscoq.path": "/home/dorian/.opam/4.14/bin/vscoqtop",
     "vscoq.goals.display": "Tabs",
     "liquid.engine": "jekyll",
     "[markdown]": {
         "diffEditor.ignoreTrimWhitespace": true
     },
+    "sqldeveloper.sqlHistory.historyLimit": 500,
+    "sqldeveloper.telemetry.enabled": false,
+    "ruff.nativeServer": "on",
+    "ruff.lineLength": 120,
+    "[dockercompose]": {
+        "editor.insertSpaces": true,
+        "editor.tabSize": 2,
+        "editor.autoIndent": "advanced",
+        "editor.defaultFormatter": "redhat.vscode-yaml"
+    },
+    "[github-actions-workflow]": {
+        "editor.defaultFormatter": "redhat.vscode-yaml"
+    },
+    "vscoq.path": "/home/dorian/.opam/4.14-ter/bin/vsrocqtop",
+    "editor.largeFileOptimizations": false,
+    "git.untrackedChanges": "separate",
 }
